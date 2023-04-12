@@ -16,8 +16,8 @@ settings = Settings()
 class Period(BaseModel):
     name: str
     verbose: str | None = None
-    start_time: float
-    end_time: float
+    start_time: float | None
+    end_time: float | None
 
     class Config:
         schema_extra = {
