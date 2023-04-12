@@ -31,7 +31,7 @@ class Period(BaseModel):
 
 
 class Breakpoint(BaseModel):
-    group_id: str = Field()
+    group_id: str
     item_id: str
     type: str | None = None
     periods: list[Period]
@@ -68,7 +68,7 @@ def get_db():
 async def add_breakpoint(breakpoint: Breakpoint, db: AsyncIOMotorDatabase = Depends(get_db)):
     collection = db.default
     results = await collection.insert_one(breakpoint.dict())
-    return Breakpoint
+    return breakpoint.dict()
 
 
 @app.get("/breakpoints/", response_model=list[Breakpoint], tags=["Breakpoints"])
